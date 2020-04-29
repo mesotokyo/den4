@@ -1,12 +1,12 @@
-= DEN4 - MIDI to CV/GATE converter using AD5668 chip and Arduino Nano Every
+# DEN4 - MIDI to CV/GATE converter using AD5668 chip and Arduino Nano Every
 
 Simple MIDI to CV/GATE conveter program for Arduino Nano Every and AD5668 octal 16bit D/A converter.
 
-== Curcuit
+## Curcuit
 
 Outline of the pin connection is as follows.
 
-=== Connection from Arduino to AD5668
+### Connection from Arduino to AD5668
 
     Arduino    <-> AD5668
     D13 (SCK)  <-> 16 (SCLK)
@@ -16,7 +16,7 @@ Outline of the pin connection is as follows.
     D9         <-> 9  (CLR)
     A7         <-> 8  (VREF)
 
-=== Connection from AD5668 to CV output
+### Connection from AD5668 to CV output
    
     AD5668      -> CV PORT
     4  (VOUT_A) -> CV2
@@ -28,7 +28,7 @@ Outline of the pin connection is as follows.
     7  (VOUT_G) -> CV3
     10 (VOUT_H) -> CV8
     
-=== Connection from Arduino to GATE output
+### Connection from Arduino to GATE output
 
 Use negative output in Arduino to use FET (inversion) output buffer.
 
@@ -42,7 +42,7 @@ Use negative output in Arduino to use FET (inversion) output buffer.
     D4       -> GATE7
     D5       -> GATE8
 
-=== Connection from photo transister to Ardion and  MIDI connector
+### Connection from photo transister to Ardion and  MIDI connector
 
     Arduino  <- Photo transister -> MIDI connector / Circuit
     D0_RX    <- Collector
@@ -50,9 +50,9 @@ Use negative output in Arduino to use FET (inversion) output buffer.
                 Cathode          -> port 5
                 Anode            -> port 4
 
-== MIDI Channels and conversion modes
+## MIDI Channels and conversion modes
 
-=== Ch. 1 to 8: CV/GATE mode
+### Ch. 1 to 8: CV/GATE mode
 
 This mode is enabled when MIDI message is received on channel 1 to 8. CV 1 to 8 are controlled by Pitch (note number), and GATE 1 to 8 are controlled by NOTE ON/OFF (or velocity 0). Additionally, CVs are controlled by NRPN message (MSB 0x40) too. In this situation, decode 16bit value from NRPN LSB's lower 2bit and DATA MSB (7bit), DATA LSB (7bit), and use it to decide CV voltage. 
 
@@ -64,7 +64,7 @@ This mode is enabled when MIDI message is received on channel 1 to 8. CV 1 to 8 
 
 ex) use Ch. 1 NOTE ON/OFF to control CV1 by pitch, GATE1 by NOTE ON/OFF
 
-=== Ch. 13 to 16: CV/GATE/CV mode
+### Ch. 13 to 16: CV/GATE/CV mode
 
 This mode is enabled when MIDI message is received on channel 13 to 16. CV 1 to 4 are controlled by Pitch (note number), and GATE 1 to 4 are controlled by NOTE ON/OFF (or velocity 0), CV 5 to 8 are controlled by Modulation CC.
 
@@ -75,17 +75,17 @@ This mode is enabled when MIDI message is received on channel 13 to 16. CV 1 to 
 ex) use Ch. 13 NOTE ON/OFF to control CV1 by pitch, GATE1 by NOTE ON/OFF,
 CV5 by modulation wheel
 
-=== Ch. 9: GATE MODE
+### Ch. 9: GATE MODE
 
 This mode enabled when MIDI message is received on channel 9. GATE 1 to 8 is controlled by Pitch (note number) and NOTE ON/OFF.
 
  * When Receive NOTE ON/OFF with note number N, GATE port N+1 ON/OFF.
 
-== USB Serial control
+## USB Serial control
 
 This program also can receive MIDI signals throgh USB serial port (Arduino Nano Every can use USB serial port and dedicated serial port together.)
 
-= Modifications to AD5668 library
+# Modifications to AD5668 library
 
 This software uses AD5668-Library (https://github.com/bobhart/AD5668-Library), andI added some modifications to work on my hardware well. Diff is as follows.
 
@@ -140,7 +140,7 @@ This software uses AD5668-Library (https://github.com/bobhart/AD5668-Library), a
  void AD5668::writeChannel(uint8_t channel, unsigned int value) {
 ```
 
-= License (GPLv3)
+# License (GPLv3)
 
 Copyright (c) 2020 mesotokyo <meso@meso.tokyo>
 
